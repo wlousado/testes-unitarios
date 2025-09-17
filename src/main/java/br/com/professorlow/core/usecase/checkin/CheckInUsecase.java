@@ -31,7 +31,7 @@ public class CheckInUsecase {
         this.vehicleGateway = vehicleGateway;
     }
 
-    public ParkingHistory doCheckIn(String code, String registrationPlate){
+    public ParkingHistory doCheckIn(String code, String registrationPlate, LocalDateTime timeArrived){
         var parkingSpace = parkingSpaceGateway.findBycode(code)
                 .orElseThrow(() -> new ParkingSpaceCodeNotFoundException("Parking space " + code + " not found"));
 
@@ -47,7 +47,7 @@ public class CheckInUsecase {
                 });
 
         parkingSpaceGateway.updateParkingSpace(parkingSpace.doBusy());
-        var history = new ParkingHistory(generator.generateCode(code), vehicle, parkingSpace.doBusy(), LocalDateTime.now());
+        var history = new ParkingHistory(generator.generateCode(code), vehicle, parkingSpace.doBusy(), timeArrived);
         return parkingHistoryGateway.save(history);
     }
 }

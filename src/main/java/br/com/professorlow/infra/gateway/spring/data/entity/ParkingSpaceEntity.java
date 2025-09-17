@@ -25,4 +25,9 @@ public class ParkingSpaceEntity {
         this.code = parkingSpace.code();
         this.status = parkingSpace.status();
     }
+
+    public ParkingSpaceEntity(String code, ParkingStatus parkingStatus) {
+        this.code = code;
+        this.status = parkingStatus;
+    }
 }

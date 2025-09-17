@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/api/v1/checkin")
 public class CheckInRestController {
@@ -24,7 +26,7 @@ public class CheckInRestController {
 
     @PostMapping
     public ResponseEntity<ParkingHistoryResponse> doCheckIn(@RequestBody @Valid CheckInRequest checkInRequest){
-        var response = checkInUsecase.doCheckIn(checkInRequest.codeParkingSpace(), checkInRequest.registrationPlate());
+        var response = checkInUsecase.doCheckIn(checkInRequest.codeParkingSpace(), checkInRequest.registrationPlate(), LocalDateTime.now());
         return ResponseEntity.ok(ParkingHistoryInfraPresenter.toResponse(response));
     }
 }
